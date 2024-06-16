@@ -1,0 +1,18 @@
+{% if include.section-title != "false" %}
+{% assign h2_text = include.h2_text | default: "Suggested Reading" %}
+<h2>{{ h2_text }}</h2>
+{% endif %}
+
+{% assign sorted_reading = include.reading | default: site.pages | sort: include.title %}
+
+<ul>
+  {% for item in sorted_reading %}
+    {% if item.type==include.type and item.category==include.category and item.list!="exclude" and include.url!=item.url and item.language == include.language %}
+    <li><a href="{{ site.baseurl }}{{ item.url }}">{{ item.title }}</a>
+      {% if item.abstract %}
+      - {{ item.abstract }}
+      {% endif %}
+    </li>
+    {% endif %}
+  {% endfor %}
+</ul>
